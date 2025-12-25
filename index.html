@@ -20,9 +20,16 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 0; }
         .logo { font-size: 28px; font-weight: bold; }
-        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 0; text-align: center; }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
         .hero h1 { font-size: 48px; margin-bottom: 20px; font-weight: 700; }
         .hero p { font-size: 22px; margin-bottom: 40px; opacity: 0.95; }
+
         .cta-button {
             display: inline-block;
             background: white;
@@ -33,11 +40,28 @@
             font-weight: 600;
             font-size: 18px;
             transition: 0.2s;
+            border: none;
+            cursor: pointer;
         }
-        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
         .features { padding: 80px 0; background: #f8f9fa; }
-        .features h2, .forecast h2 { text-align: center; font-size: 36px; margin-bottom: 60px; color: #2d3748; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 40px; }
+        .features h2, .forecast h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #2d3748;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+            gap: 40px;
+        }
+
         .feature-card {
             background: white;
             padding: 30px;
@@ -45,7 +69,12 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.07);
             transition: 0.2s;
         }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
         .feature-icon {
             width: 64px;
             height: 64px;
@@ -58,23 +87,47 @@
             background: #eef2ff;
             color: #5a67d8;
         }
-        .feature-card h3 { margin-bottom: 10px; }
-        footer { background: #2d3748; color: white; text-align: center; padding: 40px 0; }
-        .contact-section {
-            background: linear-gradient(135deg,#667eea,#764ba2);
-            color: white;
-            padding: 60px 0;
-            text-align: center;
+
+        .forecast {
+            padding: 80px 0;
+            background: #f8f9fa;
         }
-        .forecast { padding: 80px 0; background: #f8f9fa; }
+
+        /* 🔧 FIXED SPACING HERE */
+        .forecast-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .forecast-controls input[type="file"] {
+            font-size: 16px;
+        }
+
         #forecast-output {
-            margin-top: 30px;
+            margin-top: 40px;
             padding: 20px;
             background: white;
             border-radius: 10px;
             border: 1px solid #ddd;
             font-size: 16px;
             display: none;
+            text-align: center;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg,#667eea,#764ba2);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
         }
     </style>
 </head>
@@ -88,7 +141,9 @@
             Foreseeer
         </div>
         <nav style="float:right; margin-top:-28px;">
-            <a href="about.html" style="color:white; font-size:18px; text-decoration:none; margin-left:20px; font-weight:500;">About Me</a>
+            <a href="about.html" style="color:white; font-size:18px; text-decoration:none; margin-left:20px; font-weight:500;">
+                About Me
+            </a>
         </nav>
     </div>
 </header>
@@ -106,17 +161,17 @@
         <h2>Why Foreseeer?</h2>
         <div class="feature-grid">
             <div class="feature-card">
-                <div class="feature-icon" aria-hidden="true">📤</div>
+                <div class="feature-icon">📤</div>
                 <h3>Upload & Predict</h3>
                 <p>Upload historical sales data and get accurate demand forecasts in minutes.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon" aria-hidden="true">🧠</div>
+                <div class="feature-icon">🧠</div>
                 <h3>Smart Algorithms</h3>
                 <p>We learn from your patterns and tailor predictions to your store.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon" aria-hidden="true">♻️</div>
+                <div class="feature-icon">♻️</div>
                 <h3>Reduce Waste</h3>
                 <p>Optimize inventory levels and avoid overstocking or shortages.</p>
             </div>
@@ -127,21 +182,21 @@
 <section class="forecast" id="forecast">
     <div class="container">
         <h2>Upload Your Data to Get a Forecast</h2>
-        <input type="file" id="file-input" accept=".csv" />
-        <button class="cta-button" onclick="runForecast()">Generate Forecast</button>
+
+        <div class="forecast-controls">
+            <input type="file" id="file-input" accept=".csv" />
+            <button class="cta-button" onclick="runForecast()">Generate Forecast</button>
+        </div>
+
         <pre id="forecast-output"></pre>
     </div>
 </section>
 
-<!-- ✅ FIXED CONTACT SECTION -->
 <section class="contact-section" id="contact">
     <div class="container">
         <h2>Ready to Forecast Smarter?</h2>
         <p>Join local retailers optimizing their stores with AI</p>
-
-        <!-- THIS IS THE ONLY CHANGE -->
-        <a href="mailto:shorjain@gmail.com?subject=Foreseeer%20Inquiry&body=Hi%20Shorya,%0A%0AI'm%20interested%20in%20learning%20more%20about%20Foreseeer.%0A"
-           class="cta-button">
+        <a href="mailto:shorjain@gmail.com?subject=Foreseeer%20Inquiry" class="cta-button">
             Contact Us
         </a>
     </div>
