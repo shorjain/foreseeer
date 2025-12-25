@@ -46,6 +46,19 @@
             transition: 0.2s;
         }
         .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            font-size: 30px;
+            background: #eef2ff;
+            color: #5a67d8;
+        }
+        .feature-card h3 { margin-bottom: 10px; }
         footer { background: #2d3748; color: white; text-align: center; padding: 40px 0; }
         .contact-section {
             background: linear-gradient(135deg,#667eea,#764ba2);
@@ -93,14 +106,17 @@
         <h2>Why Foreseeer?</h2>
         <div class="feature-grid">
             <div class="feature-card">
+                <div class="feature-icon" aria-hidden="true">📤</div>
                 <h3>Upload & Predict</h3>
                 <p>Upload historical sales data and get accurate demand forecasts in minutes.</p>
             </div>
             <div class="feature-card">
+                <div class="feature-icon" aria-hidden="true">🧠</div>
                 <h3>Smart Algorithms</h3>
                 <p>We learn from your patterns and tailor predictions to your store.</p>
             </div>
             <div class="feature-card">
+                <div class="feature-icon" aria-hidden="true">♻️</div>
                 <h3>Reduce Waste</h3>
                 <p>Optimize inventory levels and avoid overstocking or shortages.</p>
             </div>
