@@ -9,21 +9,91 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Me - Foreseeer</title>
+
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin:0; padding:0; background:linear-gradient(135deg,#4da0ff,#1a4fff); color:#fff; color:#333; }
-        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-        h1 { font-size:42px; color:#2d3748; text-align:center; margin-bottom:20px; }
-        p { font-size:18px; line-height:1.7; color:#4a5568; text-align:center; }
-        .img-wrap { width:100%; margin:30px auto; text-align:center; }
-        .img-wrap img { width:100%; max-height:360px; object-fit:cover; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.3); }
-        .cards { display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-top:40px; }
-        .card { width:260px; background:white; padding:20px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.18), 0 0 25px rgba(99,160,255,0.35); text-align:center; }
-        .card-icon { font-size:40px; margin-bottom:10px; }
-        a { color:#667eea; text-decoration:none; font-size:18px; display:block; text-align:center; margin-top:30px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg,#4da0ff,#1a4fff);
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #4a5568;
+            text-align: center;
+        }
+
+        /* ✅ FIXED IMAGE STYLES */
+        .img-wrap {
+            width: 100%;
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        .img-wrap img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .card {
+            width: 260px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.18),
+                0 0 25px rgba(99,160,255,0.35);
+            text-align: center;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+        }
     </style>
 </head>
-<body style="margin:0; padding:0; background:linear-gradient(135deg,#4da0ff,#1a4fff);">
-    <header style="background:linear-gradient(135deg,#667eea,#764ba2); padding:20px 0; color:white; box-shadow:0 4px 20px rgba(0,0,0,0.25);">
+
+<body>
+<header style="background:linear-gradient(135deg,#667eea,#764ba2); padding:20px 0; color:white; box-shadow:0 4px 20px rgba(0,0,0,0.25);">
     <div style="max-width:1200px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between;">
         <div style="display:flex; align-items:center; gap:10px; font-size:28px; font-weight:700;">
             <img src="Images/favicon-32x32.png" style="width:32px; height:32px;">
@@ -36,39 +106,47 @@
 </header>
 
 <div class="container">
-        <div style='width:100%; padding:70px 0; background:linear-gradient(135deg,#6ea8ff,#3a5bff); text-align:center; color:white; margin-bottom:40px; box-shadow:0 4px 20px rgba(0,0,0,0.2);'><h1 style='color:white; font-size:48px; margin:0;'>About Me</h1></div>
-        <div class="img-wrap">
-            <img src="Images/Shorjainpic.jpeg" alt="Shorya Jain">
-        </div>
-        <p>
-            Hi, I'm <strong>Shorya Jain</strong>. I’ve always been interested in how businesses make decisions, especially around supply,
-            demand, and pricing. Studying economics showed me how many small businesses operate without the tools they need to understand
-            their own data. A lot of them aren’t maximizing profits simply because they don’t have access to clear insights.
-        </p>
-        <p style="margin-top:20px;">
-            That’s why I built Foreseeer. I wanted to take what I’ve learned about economics, forecasting, and coding and turn it into
-            something real that helps local shops run smarter and waste less.
-        </p>
-
-        <div class="cards">
-            <div class="card">
-                <div class="card-icon">💻</div>
-                <h3>My Coding Journey</h3>
-                <p>I’ve worked with Python, JavaScript, HTML, CSS, and machine learning. I love creating tools that help real users.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🎯</div>
-                <h3>My Mission</h3>
-                <p>I want to make AI simple and accessible for everyday businesses so they can thrive without complexity.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🌄</div>
-                <h3>Outside of Coding</h3>
-                <p>I enjoy learning new skills, exploring ideas, and experimenting with design and technology together.</p>
-            </div>
-        </div>
-
-        <a href="index.html">⬅ Back to Home</a>
+    <div style="width:100%; padding:70px 0; background:linear-gradient(135deg,#6ea8ff,#3a5bff); text-align:center; color:white; margin-bottom:40px; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+        <h1 style="color:white; font-size:48px; margin:0;">About Me</h1>
     </div>
+
+    <div class="img-wrap">
+        <img src="Images/Shorjainpic.jpeg" alt="Shorya Jain">
+    </div>
+
+    <p>
+        Hi, I'm <strong>Shorya Jain</strong>. I’ve always been interested in how businesses make decisions, especially around supply,
+        demand, and pricing. Studying economics showed me how many small businesses operate without the tools they need to understand
+        their own data. A lot of them aren’t maximizing profits simply because they don’t have access to clear insights.
+    </p>
+
+    <p style="margin-top:20px;">
+        That’s why I built Foreseeer. I wanted to take what I’ve learned about economics, forecasting, and coding and turn it into
+        something real that helps local shops run smarter and waste less.
+    </p>
+
+    <div class="cards">
+        <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>My Coding Journey</h3>
+            <p>I’ve worked with Python, JavaScript, HTML, CSS, and machine learning. I love creating tools that help real users.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3>My Mission</h3>
+            <p>I want to make AI simple and accessible for everyday businesses so they can thrive without complexity.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🌄</div>
+            <h3>Outside of Coding</h3>
+            <p>I enjoy learning new skills, exploring ideas, and experimenting with design and technology together.</p>
+        </div>
+    </div>
+
+    <a href="index.html">⬅ Back to Home</a>
+</div>
+
 </body>
 </html>
