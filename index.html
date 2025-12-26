@@ -1,123 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Favicon links -->
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="64x64" href="Images/favicon-64x64.png">
     <link rel="apple-touch-icon" href="Images/apple-touch-icon.png">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foreseeer - Smart Demand Forecasting for Local Retail</title>
+    <title>Foreseeer - Smart Demand Forecasting</title>
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 0; }
-        .logo { font-size: 28px; font-weight: bold; }
+
+        header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 0;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             padding: 80px 0;
             text-align: center;
         }
-        .hero h1 { font-size: 48px; margin-bottom: 20px; font-weight: 700; }
-        .hero p { font-size: 22px; margin-bottom: 40px; opacity: 0.95; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .hero p { font-size: 22px; margin-bottom: 40px; }
 
         .cta-button {
-            display: inline-block;
             background: white;
             color: #667eea;
-            padding: 15px 40px;
-            text-decoration: none;
+            padding: 14px 36px;
             border-radius: 30px;
             font-weight: 600;
             font-size: 18px;
-            transition: 0.2s;
             border: none;
             cursor: pointer;
-        }
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .features { padding: 80px 0; background: #f8f9fa; }
-        .features h2, .forecast h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 60px;
-            color: #2d3748;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-            gap: 40px;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
-            transition: 0.2s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .feature-icon {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 16px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 18px;
-            font-size: 30px;
-            background: #eef2ff;
-            color: #5a67d8;
         }
 
         .forecast {
             padding: 80px 0;
             background: #f8f9fa;
+            text-align: center;
+        }
+        .forecast h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
         }
 
-        /* 🔧 FIXED SPACING HERE */
         .forecast-controls {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
         }
 
+        .forecast-controls input[type="number"],
         .forecast-controls input[type="file"] {
             font-size: 16px;
         }
 
         #forecast-output {
             margin-top: 40px;
-            padding: 20px;
+            padding: 25px;
             background: white;
             border-radius: 10px;
             border: 1px solid #ddd;
-            font-size: 16px;
             display: none;
-            text-align: center;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            white-space: pre-line;
         }
 
         .contact-section {
-            background: linear-gradient(135deg,#667eea,#764ba2);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             padding: 60px 0;
             text-align: center;
@@ -126,8 +97,8 @@
         footer {
             background: #2d3748;
             color: white;
-            text-align: center;
             padding: 40px 0;
+            text-align: center;
         }
     </style>
 </head>
@@ -136,46 +107,18 @@
 
 <header>
     <div class="container">
-        <div class="logo" style="display:flex; align-items:center; gap:10px;">
-            <img src="Images/favicon-32x32.png" alt="logo" style="width:32px; height:32px;">
+        <div class="logo">
+            <img src="Images/favicon-32x32.png" alt="logo">
             Foreseeer
         </div>
-        <nav style="float:right; margin-top:-28px;">
-            <a href="about.html" style="color:white; font-size:18px; text-decoration:none; margin-left:20px; font-weight:500;">
-                About Me
-            </a>
-        </nav>
     </div>
 </header>
 
 <section class="hero">
     <div class="container">
         <h1>Predict Tomorrow's Demand Today</h1>
-        <p>AI-powered forecasting that helps local retailers stock smarter, not harder</p>
+        <p>Forecast demand and make profit-maximizing inventory decisions</p>
         <a href="#forecast" class="cta-button">Try Forecasting</a>
-    </div>
-</section>
-
-<section class="features">
-    <div class="container">
-        <h2>Why Foreseeer?</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📤</div>
-                <h3>Upload & Predict</h3>
-                <p>Upload historical sales data and get accurate demand forecasts in minutes.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h3>Smart Algorithms</h3>
-                <p>We learn from your patterns and tailor predictions to your store.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">♻️</div>
-                <h3>Reduce Waste</h3>
-                <p>Optimize inventory levels and avoid overstocking or shortages.</p>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -185,17 +128,22 @@
 
         <div class="forecast-controls">
             <input type="file" id="file-input" accept=".csv" />
+
+            <!-- Simple economic inputs -->
+            <input type="number" id="price" placeholder="Price per unit ($)" step="0.01">
+            <input type="number" id="atc" placeholder="Average total cost per unit ($)" step="0.01">
+
             <button class="cta-button" onclick="runForecast()">Generate Forecast</button>
         </div>
 
-        <pre id="forecast-output"></pre>
+        <div id="forecast-output"></div>
     </div>
 </section>
 
-<section class="contact-section" id="contact">
+<section class="contact-section">
     <div class="container">
         <h2>Ready to Forecast Smarter?</h2>
-        <p>Join local retailers optimizing their stores with AI</p>
+        <p>Join local retailers optimizing inventory with economics-backed AI</p>
         <a href="mailto:shorjain@gmail.com?subject=Foreseeer%20Inquiry" class="cta-button">
             Contact Us
         </a>
@@ -204,15 +152,66 @@
 
 <footer>
     <div class="container">
-        <p>&copy; 2025 Foreseeer. All rights reserved.</p>
+        <p>&copy; 2025 Foreseeer</p>
     </div>
 </footer>
 
 <script>
 function runForecast() {
+    const fileInput = document.getElementById('file-input');
+    const price = parseFloat(document.getElementById('price').value);
+    const atc = parseFloat(document.getElementById('atc').value);
+    const output = document.getElementById('forecast-output');
+
+    if (!fileInput.files.length) {
+        showOutput('Please upload a CSV file.');
+        return;
+    }
+    if (isNaN(price) || isNaN(atc)) {
+        showOutput('Please enter both price and average total cost.');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const rows = e.target.result.trim().split('\n');
+        const quantities = rows
+            .map(r => parseFloat(r.split(',')[0]))
+            .filter(v => !isNaN(v));
+
+        if (!quantities.length) {
+            showOutput('CSV must contain numeric demand values in the first column.');
+            return;
+        }
+
+        const avgDemand =
+            quantities.reduce((a,b) => a + b, 0) / quantities.length;
+
+        let result =
+            `Forecasted average demand: ${avgDemand.toFixed(1)} units\n\n` +
+            `Price (P): $${price.toFixed(2)}\n` +
+            `Average Total Cost (ATC): $${atc.toFixed(2)}\n\n`;
+
+        if (price > atc) {
+            result +=
+                `P > ATC → Economic profit\n` +
+                `Recommendation: stock approximately ${Math.round(avgDemand)} units.`;
+        } else {
+            result +=
+                `P ≤ ATC → No economic profit\n` +
+                `Recommendation: reduce inventory or reassess pricing.`;
+        }
+
+        showOutput(result);
+    };
+
+    reader.readAsText(fileInput.files[0]);
+}
+
+function showOutput(text) {
     const output = document.getElementById('forecast-output');
     output.style.display = 'block';
-    output.textContent = 'Forecast generated (demo)';
+    output.textContent = text;
 }
 </script>
 
