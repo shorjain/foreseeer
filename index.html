@@ -7,8 +7,8 @@
     <link rel="icon" type="image/png" sizes="64x64" href="Images/favicon-64x64.png">
     <link rel="apple-touch-icon" href="Images/apple-touch-icon.png">
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Foreseeer - Smart Demand Forecasting for Local Retail</title>
 
@@ -72,6 +72,7 @@
             font-weight: 600;
             font-size: 18px;
             transition: 0.2s;
+            cursor: pointer;
         }
 
         .cta-button:hover {
@@ -117,8 +118,15 @@
             margin-bottom: 20px;
         }
 
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
         .contact-section {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg,#667eea,#764ba2);
             color: white;
             padding: 60px 0;
             text-align: center;
@@ -134,15 +142,10 @@
             padding: 20px;
             background: white;
             border-radius: 10px;
+            border: 1px solid #ddd;
             display: none;
             white-space: pre-line;
-        }
-
-        footer {
-            background: #2d3748;
-            color: white;
-            text-align: center;
-            padding: 40px 0;
+            color: #333;
         }
     </style>
 </head>
@@ -236,11 +239,7 @@
     <div class="container">
         <h2>Ready to Forecast Smarter?</h2>
         <p>Join local retailers optimizing their stores with AI</p>
-
-        <!-- ✅ FIXED EMAIL -->
-        <a href="mailto:shorjain@gmail.com" class="cta-button">
-            Contact Us
-        </a>
+        <a href="mailto:shorjain@gmail.com" class="cta-button">Contact Us</a>
     </div>
 </section>
 
@@ -251,11 +250,58 @@
 </footer>
 
 <script>
-    function runForecast() {
-        const output = document.getElementById('forecast-output');
-        output.style.display = 'block';
-        output.textContent = 'Forecast generated (demo)';
+function runForecast() {
+    const fileInput = document.getElementById('file-input');
+    const horizon = parseInt(document.getElementById('horizon').value);
+    const output = document.getElementById('forecast-output');
+
+    if (!fileInput.files.length) {
+        alert('Please upload a CSV file first.');
+        return;
     }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        const rows = e.target.result
+            .split('\n')
+            .map(r => r.trim())
+            .filter(r => r);
+
+        let sales = [];
+
+        for (let i = 1; i < rows.length; i++) {
+            const parts = rows[i].split(',');
+            if (parts.length >= 2 && !isNaN(parts[1])) {
+                sales.push(parseFloat(parts[1]));
+            }
+        }
+
+        if (sales.length < 3) {
+            alert('Not enough data to forecast.');
+            return;
+        }
+
+        const windowSize = 3;
+        let lastValues = sales.slice(-windowSize);
+        let forecasts = [];
+
+        for (let i = 0; i < horizon; i++) {
+            const avg =
+                lastValues.reduce((a, b) => a + b, 0) / lastValues.length;
+
+            forecasts.push(avg.toFixed(2));
+            lastValues = [...lastValues.slice(1), avg];
+        }
+
+        output.style.display = 'block';
+        output.textContent =
+            `Forecast for next ${horizon} days:\n` +
+            forecasts.map((v, i) => `Day ${i + 1}: ${v}`).join('\n');
+    };
+
+    reader.readAsText(fileInput.files[0]);
+}
 </script>
 
 </body>
