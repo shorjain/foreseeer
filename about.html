@@ -16,7 +16,7 @@
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg,#4da0ff,#1a4fff);
-            color: #333;
+            color: #ffffff; /* ✅ white text on dark background */
         }
 
         .container {
@@ -27,7 +27,7 @@
 
         h1 {
             font-size: 42px;
-            color: #2d3748;
+            color: #ffffff; /* ✅ white */
             text-align: center;
             margin-bottom: 20px;
         }
@@ -35,11 +35,10 @@
         p {
             font-size: 18px;
             line-height: 1.7;
-            color: #4a5568;
+            color: #ffffff; /* ✅ white */
             text-align: center;
         }
 
-        /* ✅ FIXED IMAGE STYLES */
         .img-wrap {
             width: 100%;
             margin: 30px auto;
@@ -74,6 +73,12 @@
                 0 8px 25px rgba(0,0,0,0.18),
                 0 0 25px rgba(99,160,255,0.35);
             text-align: center;
+            color: #333; /* ✅ dark text on white card */
+        }
+
+        .card h3,
+        .card p {
+            color: #333; /* ✅ override white */
         }
 
         .card-icon {
@@ -82,7 +87,7 @@
         }
 
         a {
-            color: #667eea;
+            color: #ffffff; /* ✅ white link on dark background */
             text-decoration: none;
             font-size: 18px;
             display: block;
@@ -116,32 +121,30 @@
 
     <p>
         Hi, I'm <strong>Shorya Jain</strong>. I’ve always been interested in how businesses make decisions, especially around supply,
-        demand, and pricing. Studying economics showed me how many small businesses operate without the tools they need to understand
-        their own data. A lot of them aren’t maximizing profits simply because they don’t have access to clear insights.
+        demand, and pricing.
     </p>
 
     <p style="margin-top:20px;">
-        That’s why I built Foreseeer. I wanted to take what I’ve learned about economics, forecasting, and coding and turn it into
-        something real that helps local shops run smarter and waste less.
+        That’s why I built Foreseeer — to turn economics, forecasting, and code into something practical for local shops.
     </p>
 
     <div class="cards">
         <div class="card">
             <div class="card-icon">💻</div>
             <h3>My Coding Journey</h3>
-            <p>I’ve worked with Python, JavaScript, HTML, CSS, and machine learning. I love creating tools that help real users.</p>
+            <p>I’ve worked with Python, JavaScript, HTML, CSS, and machine learning.</p>
         </div>
 
         <div class="card">
             <div class="card-icon">🎯</div>
             <h3>My Mission</h3>
-            <p>I want to make quantitative models, as such, simple and accessible for everyday businesses so they can thrive without complexity.</p>
+            <p>I want to make quantitative models simple and accessible for everyday businesses.</p>
         </div>
 
         <div class="card">
             <div class="card-icon">🌄</div>
             <h3>Outside of Coding</h3>
-            <p>I enjoy learning new skills, exploring ideas, and experimenting with design and technology together.</p>
+            <p>I enjoy learning new skills and experimenting with design and technology.</p>
         </div>
     </div>
 
