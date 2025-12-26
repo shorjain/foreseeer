@@ -147,6 +147,16 @@
             white-space: pre-line;
             color: #333;
         }
+
+        /* 🔹 Explanation text */
+        #forecast-explanation {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #4a5568;
+            text-align: center;
+            display: none;
+            line-height: 1.6;
+        }
     </style>
 </head>
 
@@ -232,6 +242,14 @@
         </div>
 
         <pre id="forecast-output"></pre>
+
+        <!-- ✅ Explanation added -->
+        <p id="forecast-explanation">
+            Each value above represents the estimated number of units you may sell on that future day.
+            The forecast is calculated using a moving average of your most recent sales, which smooths
+            short-term fluctuations and highlights overall demand trends. Use these projections to plan
+            inventory levels, avoid overstocking, and reduce missed sales opportunities.
+        </p>
     </div>
 </section>
 
@@ -254,6 +272,7 @@ function runForecast() {
     const fileInput = document.getElementById('file-input');
     const horizon = parseInt(document.getElementById('horizon').value);
     const output = document.getElementById('forecast-output');
+    const explanation = document.getElementById('forecast-explanation');
 
     if (!fileInput.files.length) {
         alert('Please upload a CSV file first.');
@@ -295,6 +314,8 @@ function runForecast() {
         }
 
         output.style.display = 'block';
+        explanation.style.display = 'block';
+
         output.textContent =
             `Forecast for next ${horizon} days:\n` +
             forecasts.map((v, i) => `Day ${i + 1}: ${v}`).join('\n');
