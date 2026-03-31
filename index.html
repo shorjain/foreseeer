@@ -6,887 +6,183 @@
     <link rel="apple-touch-icon" href="Images/apple-touch-icon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foreseeer - Smart Demand Forecasting for Local Retail</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --ink: #2d3748;
-            --paper: #f8f9fa;
-            --accent: #667eea;
-            --accent2: #764ba2;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --muted: #718096;
-            --card-bg: #ffffff;
-            --border: #e2e8f0;
-            --success: #48bb78;
-            --warn: #ed8936;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--paper);
-            color: var(--ink);
-            line-height: 1.6;
-        }
-
-        header {
-            background: var(--gradient);
-            color: white;
-            padding: 18px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo span { color: rgba(255,255,255,0.75); }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            opacity: 0.85;
-            transition: opacity 0.15s;
-        }
-        nav a:hover { opacity: 1; }
-
-        .hero {
-            background: var(--gradient);
-            color: white;
-            padding: 90px 24px 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                0deg, transparent, transparent 39px,
-                rgba(255,255,255,0.05) 39px, rgba(255,255,255,0.05) 40px
-            ),
-            repeating-linear-gradient(
-                90deg, transparent, transparent 39px,
-                rgba(255,255,255,0.05) 39px, rgba(255,255,255,0.05) 40px
-            );
-        }
-
-        .hero-content { position: relative; z-index: 1; }
-
-        .hero-eyebrow {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            font-family: 'DM Mono', monospace;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 5px 14px;
-            border-radius: 20px;
-            margin-bottom: 24px;
-        }
-
-        .hero h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(38px, 6vw, 68px);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 em {
-            font-style: normal;
-            color: rgba(255,255,255,0.75);
-            font-weight: 800;
-        }
-
-        .hero p {
-            font-size: 19px;
-            opacity: 0.92;
-            max-width: 540px;
-            margin: 0 auto 40px;
-            font-weight: 400;
-            line-height: 1.65;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: white;
-            color: var(--accent);
-            padding: 14px 36px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 16px;
-            text-decoration: none;
-            transition: transform 0.15s, box-shadow 0.15s;
-            display: inline-block;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255,255,255,0.5);
-            padding: 14px 36px;
-            border-radius: 30px;
-            font-weight: 500;
-            font-size: 16px;
-            text-decoration: none;
-            transition: border-color 0.15s, background 0.15s;
-            display: inline-block;
-        }
-        .btn-secondary:hover {
-            border-color: white;
-            background: rgba(255,255,255,0.1);
-        }
-
-        .features-wrapper {
-            background: white;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .features {
-            padding: 90px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-label {
-            font-family: 'DM Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 14px;
-        }
-
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 50px;
-            padding-bottom: 4px;
-            color: var(--ink);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            padding: 36px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .feature-icon { font-size: 36px; margin-bottom: 16px; }
-
-        .feature-card h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .feature-card p {
-            font-size: 15px;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .forecast-section {
-            background: var(--gradient);
-            padding: 90px 24px;
-            color: white;
-        }
-
-        .forecast-inner {
-            max-width: 860px;
-            margin: 0 auto;
-        }
-
-        .forecast-section .section-label { color: rgba(255,255,255,0.7); }
-        .forecast-section .section-title { color: white; }
-
-        .upload-zone {
-            border: 2px dashed rgba(255,255,255,0.25);
-            border-radius: 6px;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 24px;
-            transition: border-color 0.2s, background 0.2s;
-            cursor: pointer;
-        }
-
-        .upload-zone.dragover {
-            border-color: rgba(255,255,255,0.8);
-            background: rgba(255,255,255,0.1);
-        }
-
-        .upload-zone input[type="file"] { display: none; }
-        .upload-label { cursor: pointer; display: block; }
-        .upload-icon { font-size: 42px; margin-bottom: 12px; }
-
-        .upload-hint {
-            font-size: 14px;
-            opacity: 0.75;
-            margin-top: 8px;
-            font-family: 'DM Mono', monospace;
-        }
-
-        .controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        @media (max-width: 580px) { .controls { grid-template-columns: 1fr; } }
-
-        .control-group {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 4px;
-            padding: 16px 20px;
-        }
-
-        .control-group label {
-            display: block;
-            font-family: 'DM Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.8;
-            margin-bottom: 8px;
-        }
-
-        .control-group input,
-        .control-group select {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: var(--paper);
-            font-size: 18px;
-            font-family: 'DM Mono', monospace;
-            outline: none;
-        }
-
-        .control-group select option { background: var(--ink); }
-
-        .run-btn {
-            width: 100%;
-            background: white;
-            color: var(--accent);
-            border: none;
-            padding: 18px;
-            font-family: 'Syne', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: transform 0.15s, box-shadow 0.15s;
-        }
-
-        .run-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .run-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        #results { display: none; margin-top: 40px; }
-
-        .results-header {
-            font-family: 'DM Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.75;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-
-        .stat-card {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 4px;
-            padding: 16px;
-        }
-
-        .stat-card .stat-label {
-            font-family: 'DM Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            opacity: 0.75;
-            margin-bottom: 6px;
-        }
-
-        .stat-card .stat-value {
-            font-family: 'Syne', sans-serif;
-            font-size: 26px;
-            font-weight: 700;
-        }
-
-        .stat-card .stat-sub {
-            font-size: 12px;
-            opacity: 0.7;
-            margin-top: 2px;
-        }
-
-        .trend-up { color: #86efac; }
-        .trend-down { color: #fca5a5; }
-        .trend-flat { color: rgba(255,255,255,0.9); }
-
-        .forecast-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: 'DM Mono', monospace;
-            font-size: 14px;
-            margin-bottom: 28px;
-        }
-
-        .forecast-table th {
-            text-align: left;
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            opacity: 0.7;
-            padding: 12px 14px;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            font-weight: 500;
-        }
-
-        .forecast-table td {
-            padding: 13px 14px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            vertical-align: middle;
-            font-size: 14px;
-        }
-
-        .forecast-table tr:last-child td { border-bottom: none; }
-
-        .bar-wrap {
-            width: 140px;
-            height: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .bar-fill {
-            height: 100%;
-            background: rgba(255,255,255,0.85);
-            border-radius: 4px;
-            transition: width 0.6s ease;
-        }
-
-        .conf-range {
-            font-size: 13px;
-            opacity: 0.8;
-        }
-
-        .method-box {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 8px;
-            padding: 20px 24px;
-            margin-top: 24px;
-        }
-
-        .method-box h4 {
-            font-family: 'Syne', sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: white;
-        }
-
-        .method-box p {
-            font-size: 14px;
-            opacity: 0.9;
-            line-height: 1.75;
-        }
-
-        .contact-section {
-            background: #2d3748;
-            padding: 80px 24px;
-            text-align: center;
-            color: white;
-        }
-
-        .contact-section h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: 38px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 12px;
-            color: white;
-        }
-
-        .contact-section p { color: rgba(255,255,255,0.75); margin-bottom: 6px; font-size: 17px; }
-
-        .contact-email {
-            display: inline-block;
-            margin-top: 16px;
-            font-family: 'DM Mono', monospace;
-            font-size: 18px;
-            color: white;
-            text-decoration: none;
-            border-bottom: 2px solid rgba(102,126,234,0.7);
-            padding-bottom: 3px;
-            transition: border-color 0.15s;
-        }
-        .contact-email:hover { border-color: white; }
-
-        footer {
-            background: #2d3748;
-            color: rgba(255,255,255,0.5);
-            text-align: center;
-            padding: 28px 24px;
-            font-size: 14px;
-            font-family: 'DM Mono', monospace;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .file-name {
-            font-family: 'DM Mono', monospace;
-            font-size: 13px;
-            opacity: 0.6;
-            margin-top: 10px;
-        }
-
-        .seasonality-note {
-            background: rgba(72,187,120,0.15);
-            border: 1px solid rgba(72,187,120,0.4);
-            border-radius: 4px;
-            padding: 14px 18px;
-            font-size: 14px;
-            margin-bottom: 20px;
-            display: none;
-        }
-    </style>
+    <title>Foreseeer - Smart Demand Forecasting</title>
+
+    <!-- UPDATED FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --ink: #2d3748;
+    --paper: #f8f9fa;
+    --accent: #667eea;
+    --accent2: #764ba2;
+    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --muted: #718096;
+    --card-bg: #ffffff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    margin: 0;
+}
+
+/* ===== HERO ===== */
+.hero {
+    background: var(--gradient);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* ===== METHOD EXPLAINER ===== */
+#method-explainer {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* ===== STATS ===== */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 20px;
+}
+
+.stat-card {
+    background: rgba(0,0,0,0.03);
+    padding: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    background: rgba(0,0,0,0.06);
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.stat-explain {
+    display: none;
+    margin-top: 8px;
+    font-size: 13px;
+    opacity: 0.8;
+}
+</style>
 </head>
 
 <body>
 
-<header>
-    <div class="header-inner">
-        <div class="logo">
-            <img src="Images/favicon-32x32.png" alt="logo" style="width:28px;height:28px;">
-            Foresee<span>er</span>
-        </div>
-        <nav>
-            <a href="about.html">About Me</a>
-        </nav>
-    </div>
-</header>
-
-<section class="hero">
-    <div class="hero-content">
-        <div class="hero-eyebrow">Demand Intelligence for Local Retail</div>
-        <h1>Predict tomorrow's<br><em>demand</em> today.</h1>
-        <p>Upload your sales history. Get a multi-method economic forecast with trend analysis and confidence intervals — in seconds.</p>
-        <div class="hero-buttons">
-            <a href="#forecast" class="btn-primary">Run a Forecast →</a>
-            <a href="Images/sample_foreseeer_sales.csv" download class="btn-secondary">Download Sample CSV</a>
-        </div>
-    </div>
-</section>
-
-<div class="features-wrapper">
-<section class="features">
-    <div class="section-label">Why Foreseeer</div>
-    <div class="section-title">Built on real economics,<br>not guesswork.</div>
-    <div class="feature-grid">
-        <div class="feature-card">
-            <div class="feature-icon">📈</div>
-            <h3>Trend Detection</h3>
-            <p>Detects whether your sales are growing, flat, or declining and projects that momentum into the forecast.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">📅</div>
-            <h3>Seasonality Aware</h3>
-            <p>Automatically identifies weekly patterns — like weekend spikes — so your forecast reflects how your store actually behaves.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>Confidence Intervals</h3>
-            <p>Every prediction includes a low-to-high range so you can plan conservatively or optimistically based on your risk tolerance.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔬</div>
-            <h3>Multiple Methods</h3>
-            <p>Choose from Moving Average, Exponential Smoothing, or Holt's Trend method — each suited to different types of businesses.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">📉</div>
-            <h3>Historical Analytics</h3>
-            <p>See your average daily sales, sales volatility, week-over-week growth rate, and your best day — before you forecast.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
-            <h3>100% Private</h3>
-            <p>All computation runs in your browser. Your sales data never leaves your device.</p>
-        </div>
-    </div>
-</section>
+<div class="hero">
+    <h1>Foreseeer</h1>
+    <p>Predict your demand using real data</p>
 </div>
 
-<section class="forecast-section" id="forecast">
-    <div class="forecast-inner">
-        <div class="section-label">Forecasting Engine</div>
-        <div class="section-title">Upload your data.</div>
+<div class="controls">
 
-        <p style="opacity:0.85; margin-bottom:32px; font-size:15px;">
-            CSV with two columns: <code style="background:rgba(255,255,255,0.15);padding:2px 7px;border-radius:3px;font-family:'DM Mono',monospace;">date</code> and <code style="background:rgba(255,255,255,0.15);padding:2px 7px;border-radius:3px;font-family:'DM Mono',monospace;">sales</code>. Date format: YYYY-MM-DD.
-        </p>
+    <label>Forecast Method</label>
+    <select id="method">
+        <option value="holt">Holt</option>
+        <option value="ets">Exponential</option>
+        <option value="ma">Moving Average</option>
+    </select>
 
-        <div class="upload-zone" id="upload-zone">
-            <label class="upload-label" for="file-input">
-                <div class="upload-icon">📂</div>
-                <div style="font-weight:600;font-size:16px;">Drop your CSV here or click to browse</div>
-                <div class="upload-hint">date, sales — two columns, any length</div>
-            </label>
-            <input type="file" id="file-input" accept=".csv">
-            <div class="file-name" id="file-name"></div>
-        </div>
+    <div id="method-explainer"></div>
 
-        <div class="controls">
-            <div class="control-group">
-                <label>Forecast Horizon (days)</label>
-                <input type="number" id="horizon" min="1" max="90" value="14">
-            </div>
-            <div class="control-group">
-                <label>Forecasting Method</label>
-                <select id="method">
-                    <option value="holt">Holt's Trend (recommended)</option>
-                    <option value="ets">Exponential Smoothing</option>
-                    <option value="ma">Moving Average</option>
-                </select>
-            </div>
-        </div>
+    <button onclick="runForecast()">Run Forecast</button>
+</div>
 
-        <button class="run-btn" id="run-btn" onclick="runForecast()">Generate Forecast</button>
-
-        <div id="results">
-            <div class="results-header">— Analysis Results —</div>
-            <div class="seasonality-note" id="seasonality-note">
-                📅 <strong>Weekly pattern detected.</strong> Your data shows consistent day-of-week variation. Forecasts are seasonality-adjusted.
-            </div>
-            <div class="analytics-grid" id="analytics-grid"></div>
-            <table class="forecast-table" id="forecast-table">
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Date</th>
-                        <th>Forecast</th>
-                        <th>Range (90% CI)</th>
-                        <th>Demand Bar</th>
-                    </tr>
-                </thead>
-                <tbody id="forecast-body"></tbody>
-            </table>
-            <div class="method-box" id="method-box"></div>
-        </div>
-    </div>
-</section>
-
-<section class="contact-section" id="contact">
-    <h2>Ready to forecast smarter?</h2>
-    <p>Built for local retailers who want real data, not intuition.</p>
-    <a href="mailto:shorjain@gmail.com" class="contact-email">shorjain@gmail.com</a>
-</section>
-
-<footer>
-    <p>© 2025 Foreseeer — All computation runs locally. Your data stays yours.</p>
-</footer>
+<div class="analytics-grid" id="analytics-grid"></div>
 
 <script>
-const zone = document.getElementById('upload-zone');
-const fileInput = document.getElementById('file-input');
-const fileName = document.getElementById('file-name');
 
-zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
-zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-zone.addEventListener('drop', e => {
-    e.preventDefault();
-    zone.classList.remove('dragover');
-    if (e.dataTransfer.files[0]) {
-        fileInput.files = e.dataTransfer.files;
-        fileName.textContent = e.dataTransfer.files[0].name;
-    }
-});
-fileInput.addEventListener('change', () => {
-    if (fileInput.files[0]) fileName.textContent = fileInput.files[0].name;
-});
+/* ===== METHOD EXPLANATIONS ===== */
+const methodDescriptions = {
+    holt: "Best for growing or declining businesses. Captures trends.",
+    ets: "Best for stable demand. Smooths past data.",
+    ma: "Simple average. Good baseline but ignores trends."
+};
 
-function parseCSV(text) {
-    const rows = text.split('\n').map(r => r.trim()).filter(r => r);
-    const sales = [], dates = [];
-    for (let i = 1; i < rows.length; i++) {
-        const parts = rows[i].split(',');
-        if (parts.length >= 2 && !isNaN(parseFloat(parts[1]))) {
-            dates.push(parts[0].trim());
-            sales.push(parseFloat(parts[1]));
-        }
-    }
-    return { sales, dates };
+function updateMethodExplanation() {
+    var method = document.getElementById('method').value;
+    document.getElementById('method-explainer').innerText = methodDescriptions[method];
 }
 
-function computeAnalytics(sales, dates) {
-    const n = sales.length;
-    const avg = sales.reduce((a, b) => a + b, 0) / n;
-    const variance = sales.reduce((s, v) => s + (v - avg) ** 2, 0) / n;
-    const stddev = Math.sqrt(variance);
-    const max = Math.max(...sales);
-    const maxDay = dates[sales.indexOf(max)] || `Day ${sales.indexOf(max) + 1}`;
-    let wowGrowth = null;
-    if (n >= 14) {
-        const last7 = sales.slice(-7).reduce((a, b) => a + b, 0);
-        const prev7 = sales.slice(-14, -7).reduce((a, b) => a + b, 0);
-        wowGrowth = prev7 > 0 ? ((last7 - prev7) / prev7) * 100 : null;
-    }
-    return { avg, stddev, max, maxDay, wowGrowth };
+document.getElementById('method').addEventListener('change', updateMethodExplanation);
+updateMethodExplanation();
+
+/* ===== CLICKABLE STATS ===== */
+function toggleExplain(card) {
+    var e = card.querySelector('.stat-explain');
+    e.style.display = e.style.display === 'block' ? 'none' : 'block';
 }
 
-function detectSeasonality(sales, dates) {
-    const byDow = [[], [], [], [], [], [], []];
-    for (let i = 0; i < sales.length; i++) {
-        const d = new Date(dates[i]);
-        if (!isNaN(d)) byDow[d.getDay()].push(sales[i]);
-    }
-    const dowAvg = byDow.map(arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null);
-    const validAvgs = dowAvg.filter(v => v !== null);
-    if (validAvgs.length < 5) return { seasonal: false, factors: null };
-    const grandAvg = validAvgs.reduce((a, b) => a + b, 0) / validAvgs.length;
-    const factors = dowAvg.map(v => v !== null ? v / grandAvg : 1.0);
-    const dowStd = Math.sqrt(validAvgs.reduce((s, v) => s + (v - grandAvg) ** 2, 0) / validAvgs.length);
-    return { seasonal: (dowStd / grandAvg) > 0.10, factors };
-}
-
-function movingAverage(sales, horizon) {
-    const w = Math.min(7, sales.length);
-    let window = sales.slice(-w);
-    const forecasts = [];
-    for (let i = 0; i < horizon; i++) {
-        const avg = window.reduce((a, b) => a + b, 0) / window.length;
-        forecasts.push(avg);
-        window = [...window.slice(1), avg];
-    }
-    return forecasts;
-}
-
-function exponentialSmoothing(sales, horizon, alpha = 0.3) {
-    let level = sales[0];
-    for (let i = 1; i < sales.length; i++) level = alpha * sales[i] + (1 - alpha) * level;
-    return Array(horizon).fill(level);
-}
-
-function holtsMethod(sales, horizon, alpha = 0.3, beta = 0.1) {
-    let level = sales[0];
-    let trend = sales.length > 1 ? sales[1] - sales[0] : 0;
-    for (let i = 1; i < sales.length; i++) {
-        const prevLevel = level;
-        level = alpha * sales[i] + (1 - alpha) * (level + trend);
-        trend = beta * (level - prevLevel) + (1 - beta) * trend;
-    }
-    const forecasts = [];
-    for (let h = 1; h <= horizon; h++) forecasts.push(level + h * trend);
-    return forecasts;
-}
-
-function applySeasonality(forecasts, startDate, factors) {
-    const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    return forecasts.map((val, i) => {
-        const d = new Date(startDate);
-        d.setDate(d.getDate() + i + 1);
-        const dow = d.getDay();
-        return { value: val * (factors[dow] || 1.0), dow, dayName: dayNames[dow] };
-    });
-}
-
-function residualStd(sales, method, alpha, beta) {
-    const n = sales.length;
-    if (n < 6) return Math.sqrt(sales.reduce((s, v, i, a) => i === 0 ? s : s + (v - a[i-1]) ** 2, 0) / (n - 1));
-    const half = Math.floor(n / 2);
-    const trainSales = sales.slice(0, half);
-    let residuals = [];
-    if (method === 'holt') {
-        let level = trainSales[0], trend = trainSales.length > 1 ? trainSales[1] - trainSales[0] : 0;
-        for (let i = 1; i < n; i++) {
-            residuals.push(sales[i] - (level + trend));
-            const prevLevel = level;
-            level = alpha * sales[i] + (1 - alpha) * (level + trend);
-            trend = beta * (level - prevLevel) + (1 - beta) * trend;
-        }
-    } else if (method === 'ets') {
-        let level = trainSales[0];
-        for (let i = 1; i < n; i++) {
-            residuals.push(sales[i] - level);
-            level = alpha * sales[i] + (1 - alpha) * level;
-        }
-    } else {
-        const w = Math.min(7, half);
-        for (let i = w; i < n; i++) {
-            const pred = sales.slice(i - w, i).reduce((a, b) => a + b, 0) / w;
-            residuals.push(sales[i] - pred);
-        }
-    }
-    return Math.sqrt(residuals.reduce((s, r) => s + r * r, 0) / residuals.length);
-}
-
+/* ===== FAKE DATA FOR DEMO ===== */
 function runForecast() {
-    const input = document.getElementById('file-input');
-    const horizon = parseInt(document.getElementById('horizon').value) || 14;
-    const method = document.getElementById('method').value;
-    const btn = document.getElementById('run-btn');
-    if (!input.files.length) { alert('Please upload a CSV file first.'); return; }
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Analyzing…';
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const { sales, dates } = parseCSV(e.target.result);
-            if (sales.length < 5) { alert('Need at least 5 rows of data to forecast.'); btn.disabled = false; btn.textContent = 'Generate Forecast'; return; }
-            const analytics = computeAnalytics(sales, dates);
-            const { seasonal, factors } = detectSeasonality(sales, dates);
-            const alpha = 0.3, beta = 0.1;
-            let base;
-            if (method === 'holt') base = holtsMethod(sales, horizon, alpha, beta);
-            else if (method === 'ets') base = exponentialSmoothing(sales, horizon, alpha);
-            else base = movingAverage(sales, horizon);
-            const lastDate = dates[dates.length - 1] ? new Date(dates[dates.length - 1]) : new Date();
-            let adjusted;
-            if (seasonal && factors) {
-                adjusted = applySeasonality(base, lastDate, factors);
-            } else {
-                const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-                adjusted = base.map((val, i) => {
-                    const d = new Date(lastDate);
-                    d.setDate(d.getDate() + i + 1);
-                    return { value: val, dow: d.getDay(), dayName: dayNames[d.getDay()] };
-                });
-            }
-            const sigma = residualStd(sales, method, alpha, beta);
-            const forecasts = adjusted.map((f, i) => {
-                const v = Math.max(0, f.value);
-                const margin = 1.645 * sigma * Math.sqrt(i + 1);
-                const d = new Date(lastDate);
-                d.setDate(d.getDate() + i + 1);
-                return { day: i + 1, value: v, low: Math.max(0, v - margin), high: v + margin, dayName: f.dayName, date: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) };
-            });
-            renderResults(analytics, forecasts, seasonal, method, sigma);
-        } catch(err) { alert('Error processing file: ' + err.message); console.error(err); }
-        btn.disabled = false;
-        btn.textContent = 'Generate Forecast';
-    };
-    reader.readAsText(input.files[0]);
-}
 
-function renderResults(analytics, forecasts, seasonal, method, sigma) {
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('seasonality-note').style.display = seasonal ? 'block' : 'none';
-    const wow = analytics.wowGrowth;
-    const wowClass = wow === null ? 'trend-flat' : wow > 2 ? 'trend-up' : wow < -2 ? 'trend-down' : 'trend-flat';
-    const wowStr = wow === null ? 'N/A' : (wow >= 0 ? '+' : '') + wow.toFixed(1) + '%';
-    document.getElementById('analytics-grid').innerHTML = `
-        <div class="stat-card"><div class="stat-label">Avg Daily Sales</div><div class="stat-value">${analytics.avg.toFixed(1)}</div><div class="stat-sub">units/day</div></div>
-        <div class="stat-card"><div class="stat-label">Volatility (σ)</div><div class="stat-value">${analytics.stddev.toFixed(1)}</div><div class="stat-sub">std deviation</div></div>
-        <div class="stat-card"><div class="stat-label">Week-over-Week</div><div class="stat-value ${wowClass}">${wowStr}</div><div class="stat-sub">growth rate</div></div>
-        <div class="stat-card"><div class="stat-label">Best Day</div><div class="stat-value" style="font-size:18px;">${analytics.max.toFixed(0)}</div><div class="stat-sub">${analytics.maxDay}</div></div>
-        <div class="stat-card"><div class="stat-label">Forecast Error (σ)</div><div class="stat-value">${sigma.toFixed(1)}</div><div class="stat-sub">residual std</div></div>
-    `;
-    const maxVal = Math.max(...forecasts.map(f => f.value), 1);
-    document.getElementById('forecast-body').innerHTML = forecasts.map(f => `
-        <tr>
-            <td>Day ${f.day}</td>
-            <td>${f.date} <span style="opacity:0.5;font-size:11px;">${f.dayName}</span></td>
-            <td><strong>${f.value.toFixed(1)}</strong></td>
-            <td class="conf-range">${f.low.toFixed(1)} – ${f.high.toFixed(1)}</td>
-            <td><div class="bar-wrap"><div class="bar-fill" style="width:${Math.min(100,(f.value/maxVal)*100).toFixed(1)}%"></div></div></td>
-        </tr>
-    `).join('');
-    const explanations = {
-        holt: `<h4>Holt's Double Exponential Smoothing</h4><p>Models two components: the current <em>level</em> of demand and its <em>trend</em>. Recent data counts more than old data — ideal when sales are clearly growing or declining. Alpha (α = 0.3) controls level adaptation; beta (β = 0.1) controls trend adaptation. Confidence intervals widen over time because uncertainty compounds.</p>`,
-        ets: `<h4>Simple Exponential Smoothing (SES)</h4><p>Forecasts using an exponentially weighted average of all past sales, where weights decay as you go further back. With α = 0.3, the most recent day gets 30% weight. Best for stationary series with no strong trend. The confidence interval correctly widens with horizon.</p>`,
-        ma: `<h4>Moving Average (7-Day Window)</h4><p>Averages the last 7 days and projects that forward. Each day gets equal weight. Useful as a baseline but cannot capture growth trends. Works best when demand is stable and relatively noise-free.</p>`
+    const analytics = {
+        avg: 52,
+        stddev: 12,
+        max: 80,
+        maxDay: "Sat",
+        wowGrowth: 8
     };
-    document.getElementById('method-box').innerHTML = explanations[method];
+
+    const wowClass = "trend-up";
+    const wowStr = "+8%";
+
+    document.getElementById('analytics-grid').innerHTML = `
+
+    <div class="stat-card" onclick="toggleExplain(this)">
+        <div class="stat-label">Avg Daily Sales</div>
+        <div class="stat-value">${analytics.avg}</div>
+        <div class="stat-explain">Baseline daily demand.</div>
+    </div>
+
+    <div class="stat-card" onclick="toggleExplain(this)">
+        <div class="stat-label">Volatility</div>
+        <div class="stat-value">${analytics.stddev}</div>
+        <div class="stat-explain">Higher = less predictable.</div>
+    </div>
+
+    <div class="stat-card" onclick="toggleExplain(this)">
+        <div class="stat-label">Growth</div>
+        <div class="stat-value">${wowStr}</div>
+        <div class="stat-explain">Demand trend direction.</div>
+    </div>
+
+    <div class="stat-card" onclick="toggleExplain(this)">
+        <div class="stat-label">Best Day</div>
+        <div class="stat-value">${analytics.max}</div>
+        <div class="stat-explain">Peak demand day.</div>
+    </div>
+
+    `;
 }
 </script>
 
