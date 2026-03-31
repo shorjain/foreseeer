@@ -1,155 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Favicon Links -->
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="64x64" href="Images/favicon-64x64.png">
     <link rel="apple-touch-icon" href="Images/apple-touch-icon.png">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us - Foreseeer</title>
+    <title>About Me - Foreseeer</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --ink: #2d3748;
+            --paper: #f8f9fa;
+            --accent: #667eea;
+            --accent2: #764ba2;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --muted: #718096;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg,#4da0ff,#1a4fff);
-            color: #ffffff; /* ✅ white text on dark background */
+            font-family: 'DM Sans', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 900px;
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        h1 {
-            font-size: 42px;
-            color: #ffffff; /* ✅ white */
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            opacity: 0.85;
+            transition: opacity 0.15s;
+        }
+        nav a:hover { opacity: 1; }
+
+        .page-hero {
+            background: var(--gradient);
+            color: white;
             text-align: center;
+            padding: 70px 24px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg, transparent, transparent 39px,
+                rgba(255,255,255,0.05) 39px, rgba(255,255,255,0.05) 40px
+            ),
+            repeating-linear-gradient(
+                90deg, transparent, transparent 39px,
+                rgba(255,255,255,0.05) 39px, rgba(255,255,255,0.05) 40px
+            );
+        }
+
+        .page-hero-content { position: relative; z-index: 1; }
+
+        .page-eyebrow {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
             margin-bottom: 20px;
         }
 
-        p {
-            font-size: 18px;
-            line-height: 1.7;
-            color: #ffffff; /* ✅ white */
-            text-align: center;
+        .page-hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 6vw, 60px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.05;
         }
 
-        .img-wrap {
-            width: 100%;
-            margin: 30px auto;
-            text-align: center;
-        }
-
-        .img-wrap img {
-            width: 100%;
-            max-width: 420px;
-            height: auto;
-            object-fit: contain;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: block;
+        .content {
+            max-width: 900px;
             margin: 0 auto;
+            padding: 70px 24px;
+        }
+
+        .photo-wrap {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .photo-wrap img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 12px 40px rgba(102,126,234,0.35);
+        }
+
+        .bio {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto 60px;
+        }
+
+        .bio h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            color: var(--ink);
+        }
+
+        .bio p {
+            font-size: 17px;
+            color: #4a5568;
+            line-height: 1.75;
+            margin-bottom: 14px;
         }
 
         .cards {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
         }
 
         .card {
-            width: 260px;
-            background: white;
-            padding: 20px;
+            background: var(--card-bg);
+            padding: 32px 28px;
             border-radius: 12px;
-            box-shadow:
-                0 8px 25px rgba(0,0,0,0.18),
-                0 0 25px rgba(99,160,255,0.35);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
             text-align: center;
-            color: #333; /* ✅ dark text on white card */
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .card h3,
-        .card p {
-            color: #333; /* ✅ override white */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(102,126,234,0.18);
         }
 
-        .card-icon {
-            font-size: 40px;
+        .card-icon { font-size: 40px; margin-bottom: 14px; }
+
+        .card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
             margin-bottom: 10px;
+            color: var(--ink);
         }
 
-        a {
-            color: #ffffff; /* ✅ white link on dark background */
+        .card p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .back-link { text-align: center; }
+
+        .back-link a {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
             text-decoration: none;
-            font-size: 18px;
-            display: block;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .back-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+        }
+
+        footer {
+            background: #2d3748;
+            color: rgba(255,255,255,0.5);
             text-align: center;
-            margin-top: 30px;
+            padding: 28px 24px;
+            font-size: 14px;
+            font-family: 'DM Mono', monospace;
         }
     </style>
 </head>
 
 <body>
-<header style="background:linear-gradient(135deg,#667eea,#764ba2); padding:20px 0; color:white; box-shadow:0 4px 20px rgba(0,0,0,0.25);">
-    <div style="max-width:1200px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between;">
-        <div style="display:flex; align-items:center; gap:10px; font-size:28px; font-weight:700;">
-            <img src="Images/favicon-32x32.png" style="width:32px; height:32px;">
+
+<header>
+    <div class="header-inner">
+        <a href="index.html" class="logo">
+            <img src="Images/favicon-32x32.png" alt="logo" style="width:28px;height:28px;">
             Foreseeer
-        </div>
+        </a>
         <nav>
-            <a href="index.html" style="color:white; font-size:18px; text-decoration:none; font-weight:500;">Home</a>
+            <a href="index.html">← Home</a>
         </nav>
     </div>
 </header>
 
-<div class="container">
-    <div style="width:100%; padding:70px 0; background:linear-gradient(135deg,#6ea8ff,#3a5bff); text-align:center; color:white; margin-bottom:40px; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
-        <h1 style="color:white; font-size:48px; margin:0;">About Me</h1>
+<section class="page-hero">
+    <div class="page-hero-content">
+        <div class="page-eyebrow">The Person Behind the Product</div>
+        <h1>About Me</h1>
     </div>
+</section>
 
-    <div class="img-wrap">
+<div class="content">
+    <div class="photo-wrap">
         <img src="Images/Shorjainpic.jpeg" alt="Shorya Jain">
     </div>
 
-    <p>
-        Hi, I'm <strong>Shorya Jain</strong>. I’ve always been interested in how businesses make decisions, especially around supply,
-        demand, and pricing.
-    </p>
-
-    <p style="margin-top:20px;">
-        That’s why I built Foreseeer — to turn economics, forecasting, and code into something practical for local shops.
-    </p>
+    <div class="bio">
+        <h2>Hi, I'm Shorya Jain.</h2>
+        <p>I've always been interested in how businesses make decisions — especially around supply, demand, and pricing.</p>
+        <p>That's why I built Foreseeer: to turn economics, forecasting, and code into something practical for local shops. I believe quantitative models shouldn't be locked behind enterprise software — they should be accessible to every business owner.</p>
+    </div>
 
     <div class="cards">
         <div class="card">
             <div class="card-icon">💻</div>
             <h3>My Coding Journey</h3>
-            <p>I’ve worked with Python, JavaScript, HTML, CSS, and machine learning.</p>
+            <p>I've worked with Python, JavaScript, HTML, CSS, and machine learning — building tools that make data useful.</p>
         </div>
-
         <div class="card">
             <div class="card-icon">🎯</div>
             <h3>My Mission</h3>
-            <p>I want to make quantitative models simple and accessible for everyday businesses.</p>
+            <p>Make quantitative models simple and accessible for everyday businesses, not just Fortune 500 companies.</p>
         </div>
-
         <div class="card">
             <div class="card-icon">🌄</div>
             <h3>Outside of Coding</h3>
-            <p>I enjoy learning new skills and experimenting with design and technology.</p>
+            <p>I enjoy learning new skills and experimenting with design, technology, and economics.</p>
         </div>
     </div>
 
-    <a href="index.html">⬅ Back to Home</a>
+    <div class="back-link">
+        <a href="index.html">← Back to Foreseeer</a>
+    </div>
 </div>
+
+<footer>
+    <p>© 2025 Foreseeer — All rights reserved.</p>
+</footer>
 
 </body>
 </html>
