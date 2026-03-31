@@ -1,112 +1,575 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon-32x32.png">
+
+    <link rel="apple-touch-icon" href="Images/apple-touch-icon.png">
+
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About - Foreseeer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;500&family=Syne:wght@800&display=swap" rel="stylesheet">
+
+    <title>About Me - Foreseeer</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+
 
     <style>
+
         :root {
-            --ink: #1a202c;
-            --paper: #f8fafc;
-            --accent: #6366f1;
-            --gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            --font-main: 'Inter', sans-serif;
-            --font-tech: 'JetBrains Mono', monospace;
+
+            --ink: #2d3748;
+
+            --paper: #f8f9fa;
+
+            --accent: #667eea;
+
+            --accent2: #764ba2;
+
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            --muted: #718096;
+
+            --card-bg: #ffffff;
+
+            --border: #e2e8f0;
+
         }
+
+
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+
 
         body {
-            font-family: var(--font-main);
+
+            font-family: 'DM Sans', sans-serif;
+
             background: var(--paper);
+
             color: var(--ink);
-            line-height: 1.7;
-            margin: 0;
+
+            line-height: 1.6;
+
         }
 
-        header { background: var(--gradient); color: white; padding: 18px 0; }
-        .header-inner { max-width: 1000px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
 
-        .content { max-width: 700px; margin: 60px auto; padding: 0 24px; }
-        
-        .profile-card {
-            background: white;
-            padding: 50px;
-            border-radius: 32px;
-            border: 1px solid #e2e8f0;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+
+        header {
+
+            background: var(--gradient);
+
+            color: white;
+
+            padding: 18px 0;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
         }
 
-        .profile-img { 
-            width: 140px; 
-            height: 140px; 
-            border-radius: 70px; 
-            margin-bottom: 25px; 
-            object-fit: cover; 
-            border: 6px solid white;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+
+
+        .header-inner {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 0 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
         }
 
-        h1 { font-family: 'Syne', sans-serif; font-size: 36px; letter-spacing: -1.5px; margin-bottom: 10px; }
-        .sub-head { font-family: var(--font-tech); color: var(--accent); font-size: 14px; margin-bottom: 30px; display: block; }
 
-        .bio-text { text-align: left; margin-bottom: 40px; }
-        .bio-text p { color: #475569; margin-bottom: 20px; font-size: 18px; }
 
-        .skills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .skill-tag { 
-            font-family: var(--font-tech); 
-            font-size: 11px; 
-            background: #f1f5f9; 
-            padding: 6px 14px; 
-            border-radius: 6px; 
-            color: #64748b;
-        }
+        .logo {
 
-        .back-btn {
-            display: inline-block;
-            margin-top: 50px;
-            font-family: var(--font-tech);
-            color: var(--accent);
+            font-family: 'Syne', sans-serif;
+
+            font-size: 26px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: white;
+
             text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
+
         }
-        .back-btn:hover { text-decoration: underline; }
+
+
+
+        nav a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: 500;
+
+            font-size: 15px;
+
+            opacity: 0.85;
+
+            transition: opacity 0.15s;
+
+        }
+
+        nav a:hover { opacity: 1; }
+
+
+
+        .page-hero {
+
+            background: var(--gradient);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 70px 24px 60px;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .page-hero::before {
+
+            content: '';
+
+            position: absolute;
+
+            inset: 0;
+
+            background: repeating-linear-gradient(
+
+                0deg, transparent, transparent 39px,
+
+                rgba(255,255,255,0.05) 39px, rgba(255,255,255,0.05) 40px
+
+            ),
+
+            repeating-linear-gradient(
+
+                90deg, transparent, transparent 39px,
+
+                rgba(255,255,255,0.05) 39px, rgba(255,255,255,0.05) 40px
+
+            );
+
+        }
+
+
+
+        .page-hero-content { position: relative; z-index: 1; }
+
+
+
+        .page-eyebrow {
+
+            display: inline-block;
+
+            background: rgba(255,255,255,0.2);
+
+            color: white;
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            padding: 5px 14px;
+
+            border-radius: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .page-hero h1 {
+
+            font-family: 'Syne', sans-serif;
+
+            font-size: clamp(36px, 6vw, 60px);
+
+            font-weight: 800;
+
+            letter-spacing: -2px;
+
+            line-height: 1.05;
+
+        }
+
+
+
+        .content {
+
+            max-width: 900px;
+
+            margin: 0 auto;
+
+            padding: 70px 24px;
+
+        }
+
+
+
+        .photo-wrap {
+
+            text-align: center;
+
+            margin-bottom: 50px;
+
+        }
+
+
+
+        .photo-wrap img {
+
+            width: 200px;
+
+            height: 200px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 5px solid white;
+
+            box-shadow: 0 12px 40px rgba(102,126,234,0.35);
+
+        }
+
+
+
+        .bio {
+
+            text-align: center;
+
+            max-width: 620px;
+
+            margin: 0 auto 60px;
+
+        }
+
+
+
+        .bio h2 {
+
+            font-family: 'Syne', sans-serif;
+
+            font-size: 32px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 16px;
+
+            color: var(--ink);
+
+        }
+
+
+
+        .bio p {
+
+            font-size: 17px;
+
+            color: #4a5568;
+
+            line-height: 1.75;
+
+            margin-bottom: 14px;
+
+        }
+
+
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 24px;
+
+            margin-bottom: 60px;
+
+        }
+
+
+
+        .card {
+
+            background: var(--card-bg);
+
+            padding: 32px 28px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+
+            text-align: center;
+
+            transition: transform 0.2s, box-shadow 0.2s;
+
+        }
+
+
+
+        .card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 12px 28px rgba(102,126,234,0.18);
+
+        }
+
+
+
+        .card-icon { font-size: 40px; margin-bottom: 14px; }
+
+
+
+        .card h3 {
+
+            font-family: 'Syne', sans-serif;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+
+            color: var(--ink);
+
+        }
+
+
+
+        .card p {
+
+            font-size: 14px;
+
+            color: var(--muted);
+
+            line-height: 1.7;
+
+        }
+
+
+
+        .back-link { text-align: center; }
+
+
+
+        .back-link a {
+
+            display: inline-block;
+
+            background: var(--gradient);
+
+            color: white;
+
+            padding: 14px 36px;
+
+            border-radius: 30px;
+
+            font-weight: 600;
+
+            font-size: 16px;
+
+            text-decoration: none;
+
+            transition: transform 0.15s, box-shadow 0.15s;
+
+        }
+
+
+
+        .back-link a:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+
+        }
+
+
+
+        footer {
+
+            background: #2d3748;
+
+            color: rgba(255,255,255,0.5);
+
+            text-align: center;
+
+            padding: 28px 24px;
+
+            font-size: 14px;
+
+            font-family: 'DM Mono', monospace;
+
+        }
+
     </style>
+
 </head>
+
+
+
 <body>
 
+
+
 <header>
+
     <div class="header-inner">
-        <a href="index.html" style="color:white; text-decoration:none; font-family: 'Syne'; font-weight:800; font-size:20px;">Foreseeer</a>
-        <a href="index.html" style="color:white; text-decoration:none; font-family: var(--font-tech); font-size:12px;">EXIT_TO_ENGINE</a>
+
+        <a href="index.html" class="logo">
+
+            <img src="Images/favicon-32x32.png" alt="logo" style="width:28px;height:28px;">
+
+            Foreseeer
+
+        </a>
+
+        <nav>
+
+            <a href="index.html">← Home</a>
+
+        </nav>
+
     </div>
+
 </header>
 
-<div class="content">
-    <div class="profile-card">
-        <img src="Images/Shorjainpic.jpeg" alt="Shorya Jain" class="profile-img">
-        <h1>Shorya Jain</h1>
-        <span class="sub-head">QUANTITATIVE_ANALYST_&_DEVELOPER</span>
-        
-        <div class="bio-text">
-            <p>I built Foreseeer to turn economics, forecasting, and code into something practical for local shops.</p>
-            <p>I believe quantitative models shouldn't be locked behind enterprise software — they should be accessible to every business owner navigating supply and demand.</p>
-        </div>
 
-        <div class="skills">
-            <span class="skill-tag">PYTHON_DATA_SCIENCE</span>
-            <span class="skill-tag">JAVASCRIPT</span>
-            <span class="skill-tag">ECONOMETRICS</span>
-            <span class="skill-tag">UX_DESIGN</span>
-        </div>
+
+<section class="page-hero">
+
+    <div class="page-hero-content">
+
+        <div class="page-eyebrow">The Person Behind the Product</div>
+
+        <h1>About Me</h1>
+
     </div>
 
-    <center><a href="index.html" class="back-btn">← RETURN_TO_DASHBOARD</a></center>
+</section>
+
+
+
+<div class="content">
+
+    <div class="photo-wrap">
+
+        <img src="Images/Shorjainpic.jpeg" alt="Shorya Jain">
+
+    </div>
+
+
+
+    <div class="bio">
+
+        <h2>Hi, I'm Shorya Jain.</h2>
+
+        <p>I've always been interested in how businesses make decisions — especially around supply, demand, and pricing.</p>
+
+        <p>That's why I built Foreseeer: to turn economics, forecasting, and code into something practical for local shops. I believe quantitative models shouldn't be locked behind enterprise software — they should be accessible to every business owner.</p>
+
+    </div>
+
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-icon">💻</div>
+
+            <h3>My Coding Journey</h3>
+
+            <p>I've worked with Python, JavaScript, HTML, CSS, and machine learning — building tools that make data useful.</p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon">🎯</div>
+
+            <h3>My Mission</h3>
+
+            <p>Make quantitative models simple and accessible for everyday businesses, not just Fortune 500 companies.</p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon">🌄</div>
+
+            <h3>Outside of Coding</h3>
+
+            <p>I enjoy learning new skills and experimenting with design, technology, and economics.</p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="back-link">
+
+        <a href="index.html">← Back to Foreseeer</a>
+
+    </div>
+
 </div>
 
+
+
+<footer>
+
+    <p>© 2025 Foreseeer — All rights reserved.</p>
+
+</footer>
+
+
+
 </body>
+
 </html>
