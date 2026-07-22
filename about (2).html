@@ -486,58 +486,18 @@
 
 <script>
 /* ══════════════════════════════════════════════════════════════════════
-   CONFIG — paste your Anthropic API key below.
-   NOTE: this key is visible in the page source to anyone who looks. Use a
-   DEDICATED key with a low monthly spend limit (Anthropic console →
-   Settings → Limits) so the worst case is capped. Rotate it if abused.
-   Leave the placeholder to run in DEMO mode (no key, canned answers).
+   This page calls a small Cloudflare Worker, which holds the Anthropic
+   API key server-side. No secret lives in this file.
    ══════════════════════════════════════════════════════════════════════ */
-const API_KEY = "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";
-const MODEL   = "claude-haiku-4-5-20251001"; // fast + cheap; swap for a Sonnet for richer replies
-
-/* Shorya's profile — the facts the assistant answers from */
-const PROFILE = [
-  "Shorya Jain is the founder and CEO of Foreseeer, a demand-forecasting tool for local retail that he started in May 2024. He built and deployed quantitative forecasting models for three local retailers, improving their inventory decisions and increasing their profits.",
-  "Foreseeer is a browser-based demand forecasting app. A shop owner uploads a CSV of sales history and gets a multi-method forecast with trend analysis, seasonality adjustment, and confidence intervals in seconds. All computation runs in the browser, so the user's sales data never leaves their device.",
-  "Foreseeer supports three forecasting methods: Holt's Trend (the recommended default), Exponential Smoothing, and Moving Average. It detects whether sales are growing, flat, or declining, spots weekly patterns like weekend spikes, and shows analytics such as average daily sales, volatility, and week-over-week growth.",
-  "With Foreseeer, Shorya analyzes historical sales, seasonality, and demand volatility to optimize reorder strategies, balancing stockout risk against carrying costs. He's expanding it from those first retailers into a scalable online tool for many more, with a focus on unit economics and profitability.",
-  "In fall 2023, Shorya was selected for Johnson & Johnson's competitive Technology Awareness Program (TAP) internship in Raritan, NJ. Working on a team, he analyzed patient pain points and operational inefficiencies, then built and presented a data-driven digital product proposal to J&J executives.",
-  "Since May 2025, Shorya has taught math to students aged 5 to 15 at JEI Learning Center in Somerset, NJ, including one-on-one support for special education students. He tracks performance metrics to find learning gaps and adjust his instruction.",
-  "Shorya attends Hillsborough High School in New Jersey and graduates in June 2026. His AP coursework spans AP Microeconomics and Macroeconomics, AP Computer Science A, AP Statistics, AP Chemistry, AP Biology, AP US History, AP Spanish Language, and AP Art History.",
-  "Shorya was a team member of the Jain Academic Bowl (JAINA), where the New Jersey chapter won its first international championship in 14 years.",
-  "Shorya competes in Science Olympiad, designing, testing, and refining mechanical and analytical systems for state-level build events under tight time and performance constraints, and has medaled at the regional level.",
-  "Shorya's technical skills include Python, Java, and JavaScript, along with statistics and probability. He's strong in problem solving, logical reasoning, pattern recognition, technical communication, and presentations, and works in VS Code.",
-  "You can reach Shorya at shorjain@gmail.com or on LinkedIn at linkedin.com/in/shorya-jain-626534398.",
-  "This chatbot is a small easter egg on the Foreseeer site. It answers questions about Shorya using the Claude API, grounded only in these facts.",
-];
-
-const SYSTEM_PROMPT =
-  'You are "Ask Shorya", a friendly assistant on Shorya Jain\'s portfolio site (Foreseeer). ' +
-  'Answer questions about Shorya using ONLY the facts below. If something is not covered, say you do not have that detail and suggest reaching out to Shorya directly. ' +
-  'Keep replies short, warm, and specific — two or three sentences. Never invent facts, employers, dates, or numbers. Speak about Shorya in the third person.\n\n' +
-  'FACTS ABOUT SHORYA:\n' + PROFILE.map(function (f) { return '- ' + f; }).join('\n');
+const WORKER_URL = "https://ask-shorya.shorjain.workers.dev/";
 
 const STARTERS = [
-  "What is Foreseeer?",
-  "What's Shorya's experience?",
-  "What are his skills?",
-  "How does this chatbot work?",
+"What is Foreseeer?",
+"What's Shorya's experience?",
+"What are his skills?",
+"How does this chatbot work?",
 ];
 
-/* Demo fallback so the page works before a key is added.
-   NOTE: demo mode is keyword-only and has NO memory — real multi-turn
-   conversation kicks in once you add your API key (see claudeReply). */
-const DEMO_KB = [
-  { k: ["foreseeer","forecast","the product","the tool","demand","startup","company"], a: "Foreseeer is a browser-based demand-forecasting tool for local retail that Shorya founded. Upload a CSV of sales history and get a multi-method forecast — trend, seasonality, and confidence intervals — in seconds, all computed in your browser." },
-  { k: ["experience","work","working","intern","internship","job","j&j","johnson","jei","teach","teaching","background","done","else","other","more"], a: "Beyond founding Foreseeer, Shorya interned in Johnson & Johnson's competitive Technology Awareness Program, where he pitched a data-driven product concept to executives, and he teaches math to students aged 5-15 at JEI Learning Center, including special-education support." },
-  { k: ["skill","skills","stack","language","languages","python","java","javascript","coding","program"], a: "Shorya works in Python, Java, and JavaScript, with a foundation in statistics and probability — plus strengths in problem solving, logical reasoning, and technical communication." },
-  { k: ["school","education","graduate","graduating","college","hillsborough","classes","study","ap "], a: "Shorya attends Hillsborough High School in New Jersey, graduating June 2026, with a heavy AP load spanning economics, computer science, statistics, and the sciences." },
-  { k: ["academic bowl","jaina","science olympiad","award","championship","leadership","activities"], a: "Shorya was a team member of the Jain Academic Bowl (JAINA), whose New Jersey chapter won its first international title in 14 years, and he competes in Science Olympiad, where he's medaled at the regional level." },
-  { k: ["chatbot","this bot","how do you work","how does this","easter egg","are you ai","how were you"], a: "I'm a little easter egg — I answer questions about Shorya with the Claude API, grounded in the facts on this page. In the live version I also remember the whole conversation." },
-];
-
-/* ── App ─────────────────────────────────────────────────────────────── */
-var DEMO = API_KEY.indexOf("REPLACE-ME") !== -1;
 var messagesEl = document.getElementById("ask-messages");
 var chipsEl = document.getElementById("ask-chips");
 var inputEl = document.getElementById("ask-input");
@@ -545,90 +505,61 @@ var sendEl = document.getElementById("ask-send");
 var footEl = document.getElementById("ask-foot");
 var convo = [];
 
-footEl.innerHTML = DEMO ? "Demo mode — add your API key in the source to go live." : "Powered by Claude.";
+footEl.innerHTML = "Powered by Claude.";
 
 addBot("Hi! I'm Shorya's assistant. Ask me anything about him or about Foreseeer.");
 STARTERS.forEach(function (q) {
-  var b = document.createElement("button");
-  b.className = "ask-chip";
-  b.textContent = q;
-  b.onclick = function () { inputEl.value = q; send(); };
-  chipsEl.appendChild(b);
+var b = document.createElement("button");
+b.className = "ask-chip";
+b.textContent = q;
+b.onclick = function () { inputEl.value = q; send(); };
+chipsEl.appendChild(b);
 });
 
 inputEl.addEventListener("input", function () {
-  inputEl.style.height = "auto";
-  inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + "px";
+inputEl.style.height = "auto";
+inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + "px";
 });
 inputEl.addEventListener("keydown", function (e) {
-  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
 });
 sendEl.addEventListener("click", send);
 
 function send() {
-  var text = inputEl.value.trim();
-  if (!text) return;
-  inputEl.value = ""; inputEl.style.height = "auto";
-  chipsEl.style.display = "none";
-  addUser(text);
-  convo.push({ role: "user", content: text });
+var text = inputEl.value.trim();
+if (!text) return;
+inputEl.value = ""; inputEl.style.height = "auto";
+chipsEl.style.display = "none";
+addUser(text);
+convo.push({ role: "user", content: text });
 
-  var thinking = addThinking();
-  setBusy(true);
-  var p = DEMO ? demoReply(text) : claudeReply();
-  p.then(function (reply) {
-    thinking.remove();
-    addBot(reply);
-    convo.push({ role: "assistant", content: reply });
-  }).catch(function (err) {
-    thinking.remove();
-    addBot("Sorry — I couldn't reach the model just now. Try again in a moment.");
-    console.error(err);
-  }).then(function () {
-    setBusy(false);
-    inputEl.focus();
-  });
+var thinking = addThinking();
+setBusy(true);
+workerReply().then(function (reply) {
+thinking.remove();
+addBot(reply);
+convo.push({ role: "assistant", content: reply });
+}).catch(function (err) {
+thinking.remove();
+addBot("Sorry — I couldn't reach the model just now. Try again in a moment.");
+console.error(err);
+}).then(function () {
+setBusy(false);
+inputEl.focus();
+});
 }
 
-function claudeReply() {
-  return fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": API_KEY,
-      "anthropic-version": "2023-06-01",
-      "content-type": "application/json",
-      "anthropic-dangerous-direct-browser-access": "true"
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      max_tokens: 400,
-      system: SYSTEM_PROMPT,
-      messages: convo.slice(-6)
-    })
-  }).then(function (res) {
-    if (!res.ok) return res.text().then(function (t) { throw new Error("HTTP " + res.status + ": " + t); });
-    return res.json();
-  }).then(function (data) {
-    return (data.content || [])
-      .filter(function (b) { return b.type === "text"; })
-      .map(function (b) { return b.text; })
-      .join("\n").trim() || "I don't have an answer for that one.";
-  });
-}
-
-function demoReply(text) {
-  return new Promise(function (resolve) {
-    setTimeout(function () {
-      var q = text.toLowerCase();
-      var best = null, score = 0;
-      DEMO_KB.forEach(function (it) {
-        var s = it.k.reduce(function (n, kw) { return q.indexOf(kw) !== -1 ? n + kw.length : n; }, 0);
-        if (s > score) { score = s; best = it; }
-      });
-      resolve(best ? best.a
-        : "I don't have that detail yet — reach Shorya at shorjain@gmail.com. (Demo mode; the live version answers from his full profile.)");
-    }, 600 + Math.random() * 400);
-  });
+function workerReply() {
+return fetch(WORKER_URL, {
+method: "POST",
+headers: { "content-type": "application/json" },
+body: JSON.stringify({ messages: convo.slice(-8) })
+}).then(function (res) {
+return res.json().then(function (data) {
+if (!res.ok) throw new Error(data.error || ("HTTP " + res.status));
+return data.reply || "I don't have an answer for that one.";
+});
+});
 }
 
 /* ── DOM helpers ─────────────────────────────────────────────────────── */
