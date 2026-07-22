@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="Images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="Images/apple-touch-icon.png">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me - Foreseeer</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --ink: #2d3748;
+            --paper: #f8f9fa;
+            --accent: #667eea;
+            --accent2: #764ba2;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --muted: #718096;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            opacity: 0.85;
+            transition: opacity 0.15s;
+        }
+        nav a:hover { opacity: 1; }
+
+        .page-hero {
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            padding: 70px 24px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg, transparent, transparent 39px,
+                rgba(255,255,255,0.05) 39px, rgba(255,255,255,0.05) 40px
+            ),
+            repeating-linear-gradient(
+                90deg, transparent, transparent 39px,
+                rgba(255,255,255,0.05) 39px, rgba(255,255,255,0.05) 40px
+            );
+        }
+
+        .page-hero-content { position: relative; z-index: 1; }
+
+        .page-eyebrow {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 6vw, 60px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.05;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 70px 24px;
+        }
+
+        .photo-wrap {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .photo-wrap img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 12px 40px rgba(102,126,234,0.35);
+        }
+
+        .bio {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto 60px;
+        }
+
+        .bio h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            color: var(--ink);
+        }
+
+        .bio p {
+            font-size: 17px;
+            color: #4a5568;
+            line-height: 1.75;
+            margin-bottom: 14px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 32px 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(102,126,234,0.18);
+        }
+
+        .card-icon { font-size: 40px; margin-bottom: 14px; }
+
+        .card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--ink);
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .back-link { text-align: center; }
+
+        .back-link a {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .back-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+        }
+
+        footer {
+            background: #2d3748;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 28px 24px;
+            font-size: 14px;
+            font-family: 'DM Mono', monospace;
+        }
+
+        /* Ask Shorya (AI easter egg) - uses the site's own theme */
+        .ask-section { max-width: 720px; margin: 0 auto 60px; }
+
+        .ask-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .ask-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(26px, 4vw, 36px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-align: center;
+            margin-bottom: 12px;
+            color: var(--ink);
+        }
+
+        .ask-sub {
+            text-align: center;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 540px;
+            margin: 0 auto 32px;
+        }
+
+        .ask-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(102,126,234,0.14);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ask-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ask-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            flex: none;
+            background: var(--gradient);
+            color: white;
+            display: grid;
+            place-items: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .ask-who {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--ink);
+            line-height: 1.2;
+        }
+
+        .ask-status {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.4px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+        }
+        .ask-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #48bb78; }
+
+        .ask-messages {
+            padding: 22px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 240px;
+            max-height: 460px;
+            overflow-y: auto;
+        }
+
+        .ask-row { display: flex; }
+        .ask-row.user { justify-content: flex-end; }
+
+        .ask-bubble {
+            max-width: 82%;
+            padding: 12px 15px;
+            border-radius: 14px;
+            font-size: 15px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .ask-row.bot .ask-bubble {
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-top-left-radius: 5px;
+            color: var(--ink);
+        }
+        .ask-row.user .ask-bubble {
+            background: var(--gradient);
+            color: white;
+            border-top-right-radius: 5px;
+        }
+
+        .ask-thinking {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--muted);
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+        }
+        .ask-beads { display: inline-flex; gap: 4px; }
+        .ask-beads i {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent); opacity: .35;
+            animation: askpulse 1s infinite;
+        }
+        .ask-beads i:nth-child(2) { animation-delay: .15s; }
+        .ask-beads i:nth-child(3) { animation-delay: .3s; }
+        @keyframes askpulse { 0%,100% { opacity:.3; transform: translateY(0);} 50% { opacity:1; transform: translateY(-2px);} }
+
+        .ask-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 18px; }
+        .ask-chip {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            color: var(--accent);
+            background: white;
+            border: 1px solid var(--border);
+            padding: 8px 13px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: border-color .15s, background .15s;
+        }
+        .ask-chip:hover { border-color: var(--accent); background: rgba(102,126,234,0.07); }
+
+        .ask-composer { display: flex; gap: 10px; padding: 16px; border-top: 1px solid var(--border); }
+        .ask-composer textarea {
+            flex: 1; resize: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px; color: var(--ink);
+            border: 1px solid var(--border);
+            border-radius: 12px; padding: 12px 14px;
+            outline: none; max-height: 120px; line-height: 1.5;
+        }
+        .ask-composer textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+        .ask-send {
+            flex: none; border: none; cursor: pointer;
+            border-radius: 12px; padding: 0 22px;
+            background: var(--gradient); color: white;
+            font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px;
+            transition: box-shadow .15s;
+        }
+        .ask-send:hover { box-shadow: 0 6px 18px rgba(102,126,234,0.35); }
+        .ask-send:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; }
+
+        .ask-foot { text-align: center; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 12px; margin-top: 16px; }
+
+        @media (prefers-reduced-motion: reduce) { .ask-beads i { animation: none; } }
+        @media (max-width: 520px) { .ask-bubble { max-width: 88%; } }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <a href="index.html" class="logo">
+            <img src="Images/favicon-32x32.png" alt="logo" style="width:28px;height:28px;">
+            Foreseeer
+        </a>
+        <nav>
+            <a href="index.html">← Home</a>
+        </nav>
+    </div>
+</header>
+
+<section class="page-hero">
+    <div class="page-hero-content">
+        <div class="page-eyebrow">The Person Behind the Product</div>
+        <h1>About Me</h1>
+    </div>
+</section>
+
+<div class="content">
+    <div class="photo-wrap">
+        <img src="Images/Shorjainpic.jpeg" alt="Shorya Jain">
+    </div>
+
+    <div class="bio">
+        <h2>Hi, I'm Shorya Jain.</h2>
+        <p>I've always been interested in how businesses make decisions — especially around supply, demand, and pricing.</p>
+        <p>That's why I built Foreseeer: to turn economics, forecasting, and code into something practical for local shops. I believe quantitative models shouldn't be locked behind enterprise software — they should be accessible to every business owner.</p>
+    </div>
+
+    <!-- AI Easter Egg: Ask Shorya -->
+    <div class="ask-section" id="ask">
+        <div class="ask-label">✦ AI Easter Egg</div>
+        <div class="ask-title">Or just ask me.</div>
+        <p class="ask-sub">Don't feel like scrolling a bio? This little assistant answers questions about me, my projects, and Foreseeer — grounded in my real background.</p>
+
+        <div class="ask-card">
+            <div class="ask-head">
+                <div class="ask-avatar">S</div>
+                <div>
+                    <div class="ask-who">Ask Shorya</div>
+                    <div class="ask-status">online · answers from my profile</div>
+                </div>
+            </div>
+            <div class="ask-messages" id="ask-messages" aria-live="polite"></div>
+            <div class="ask-chips" id="ask-chips"></div>
+            <div class="ask-composer">
+                <textarea id="ask-input" rows="1" placeholder="Ask about my projects, experience, skills…" aria-label="Your question"></textarea>
+                <button class="ask-send" id="ask-send" aria-label="Send">Send</button>
+            </div>
+        </div>
+        <p class="ask-foot" id="ask-foot"></p>
+    </div>
+    <!-- End AI Easter Egg -->
+
+    <div class="cards">
+        <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>My Coding Journey</h3>
+            <p>I've worked with Python, JavaScript, HTML, CSS, and machine learning — building tools that make data useful.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3>My Mission</h3>
+            <p>Make quantitative models simple and accessible for everyday businesses, not just Fortune 500 companies.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🌄</div>
+            <h3>Outside of Coding</h3>
+            <p>I enjoy learning new skills and experimenting with design, technology, and economics.</p>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="index.html">← Back to Foreseeer</a>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Foreseeer — All rights reserved.</p>
+</footer>
+
+<script>
+/* This page calls a small Cloudflare Worker, which holds the Gemini API
+   key server-side. No secret lives in this file. */
+const WORKER_URL = "https://ask-shorya.shorjain.workers.dev/";
+
+const STARTERS = [
+"What is Foreseeer?",
+"What's Shorya's experience?",
+"What are his skills?",
+"How does this chatbot work?",
+];
+
+var messagesEl = document.getElementById("ask-messages");
+var chipsEl = document.getElementById("ask-chips");
+var inputEl = document.getElementById("ask-input");
+var sendEl = document.getElementById("ask-send");
+var footEl = document.getElementById("ask-foot");
+var convo = [];
+
+footEl.innerHTML = "Powered by Gemini.";
+
+addBot("Hi! I'm Shorya's assistant. Ask me anything about him or about Foreseeer.");
+STARTERS.forEach(function (q) {
+var b = document.createElement("button");
+b.className = "ask-chip";
+b.textContent = q;
+b.onclick = function () { inputEl.value = q; send(); };
+chipsEl.appendChild(b);
+});
+
+inputEl.addEventListener("input", function () {
+inputEl.style.height = "auto";
+inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + "px";
+});
+inputEl.addEventListener("keydown", function (e) {
+if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+});
+sendEl.addEventListener("click", send);
+
+function send() {
+var text = inputEl.value.trim();
+if (!text) return;
+inputEl.value = ""; inputEl.style.height = "auto";
+chipsEl.style.display = "none";
+addUser(text);
+convo.push({ role: "user", content: text });
+
+var thinking = addThinking();
+setBusy(true);
+workerReply().then(function (reply) {
+thinking.remove();
+addBot(reply);
+convo.push({ role: "assistant", content: reply });
+}).catch(function (err) {
+thinking.remove();
+// Show the REAL error so problems are diagnosable (change back to a
+// friendly message once everything works).
+addBot("⚠️ " + ((err && err.message) ? err.message : "Couldn't reach the server."));
+console.error(err);
+}).then(function () {
+setBusy(false);
+inputEl.focus();
+});
+}
+
+function workerReply() {
+return fetch(WORKER_URL, {
+method: "POST",
+headers: { "content-type": "application/json" },
+body: JSON.stringify({ messages: convo.slice(-8) })
+}).then(function (res) {
+return res.text().then(function (t) {
+var data = {};
+try { data = JSON.parse(t); } catch (e) {}
+if (!res.ok) throw new Error(data.error || ("HTTP " + res.status + ": " + t.slice(0, 160)));
+return data.reply || "I don't have an answer for that one.";
+});
+});
+}
+
+/* DOM helpers */
+function addUser(t) { row("user", bubble(t)); }
+function addBot(t) { row("bot", bubble(t)); }
+function bubble(t) { var d = document.createElement("div"); d.className = "ask-bubble"; d.textContent = t; return d; }
+function row(who, child) { var r = document.createElement("div"); r.className = "ask-row " + who; r.appendChild(child); messagesEl.appendChild(r); scrollDown(); return r; }
+function addThinking() { var r = document.createElement("div"); r.className = "ask-row bot"; r.innerHTML = '<div class="ask-thinking"><span class="ask-beads"><i></i><i></i><i></i></span> thinking…</div>'; messagesEl.appendChild(r); scrollDown(); return r; }
+function setBusy(b) { sendEl.disabled = b; }
+function scrollDown() { messagesEl.scrollTop = messagesEl.scrollHeight; }
+</script>
+
+</body>
+</html>
