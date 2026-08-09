@@ -212,7 +212,6 @@
             font-family: 'DM Mono', monospace;
         }
 
-        /* Ask Shorya (AI easter egg) - uses the site's own theme */
         .ask-section { max-width: 720px; margin: 0 auto 60px; }
 
         .ask-label {
@@ -476,8 +475,9 @@
 </footer>
 
 <script>
-/* This page calls a small Cloudflare Worker, which holds the Gemini API
-   key server-side. No secret lives in this file. */
+    
+/* cloudfare worker */
+    
 const WORKER_URL = "https://ask-shorya.shorjain.workers.dev/";
 
 const STARTERS = [
@@ -530,8 +530,7 @@ addBot(reply);
 convo.push({ role: "assistant", content: reply });
 }).catch(function (err) {
 thinking.remove();
-// Show the REAL error so problems are diagnosable (change back to a
-// friendly message once everything works).
+
 addBot("⚠️ " + ((err && err.message) ? err.message : "Couldn't reach the server."));
 console.error(err);
 }).then(function () {
