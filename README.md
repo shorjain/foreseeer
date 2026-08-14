@@ -1,2 +1,2 @@
-# foreseeer-landing
+# foreseeer
 Demand Forecasting
